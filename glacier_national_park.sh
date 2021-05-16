@@ -1,12 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 start=$1
 month=$2
 end=$3
+profile=$4
+targe_arn=$5
 
 base_url="https://secure.glaciernationalparklodges.com/lodging/getRooms";
+date=`date`
+echo $date >> gnp.log
 
 cur=$start
+rm gnp_output
 while [ $cur -lt $end ]
 do
   start_date="$month/$cur/2021"
@@ -22,9 +27,25 @@ do
 			$base_url | jq -r '.rateplans.rateplans' | jq length`
       if [ $units_available -gt 0 ];
       then
-      	echo "$hotel_code\t$start_date\t$units_available";
+        echo "$hotel_code $start_date $units_available" >> gnp_output
+        echo "$hotel_code $start_date $units_available" >> gnp.log
       fi
   done
   cur=$next
 done
 
+if [ -n "${profile}" ] && [ -n $topic_arn ] && [ -e gnp_output ];
+then
+    echo "sending sns notification" >> gnp.log
+    aws --profile $profile sns publish --topic-arn $targe_arn --message file://gnp_output
+elif [ -e gnp_output ];
+then 
+    cat gnp_output
+fi
+
+if [ -e gnp_output ];
+then
+    rm -rf gnp_output
+fi
+
+echo "---------------------------" >> gnp.log
