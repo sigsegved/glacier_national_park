@@ -1,5 +1,5 @@
 # glacier_national_park
-Simple script to get glacier national park availability in a given month.
+Simple script to get glacier national park lodges availability in a given month.
 
 # Usage
 `chmod u+x glacier_national_park.sh`
