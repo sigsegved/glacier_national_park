@@ -14,3 +14,12 @@ Simple script to get glacier national park availability in a given month.
 
 
 `./glacier_national_park 1 8 30` - will fetch lodge availability from 08/01/2021 to 08/30/2021. 
+
+```
+GLLM	- Lake McDonald Lodge
+GLMG	- Many Glacier Hote
+GLRS	- Rising Sun Motor Inn & Cabins
+GLSC	- Swiftcurrent Motor Inn & Cabins
+GLVI	- Village Inn at Apgar
+GLCC	- Cedar Creek Lodge (Columbia Falls, MT)
+```
